@@ -12,20 +12,21 @@ var margin = {
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
-// Create an SVG wrapper, append an SVG group that will hold our chart, and shift the latter by left and top margins.
+//SVG wrapper 
 var svg = d3.select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
 
+//Tanslate margins 
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Import Data
+// Import Data
 d3.csv("assets/data/data.csv")
   .then(function(stateData) {
 
-    // Parse Data/Cast as numbers
+    // Parse sata as numbers
     stateData.forEach(function(data) {
       data.poverty = +data.poverty;
       data.age = +data.age;
@@ -33,6 +34,7 @@ d3.csv("assets/data/data.csv")
       data.smokes = +data.smokes;
       data.abbr = data.abbr;
     });
+    
     //Scale functions
     var xLinearScale = d3.scaleLinear()
       .domain([8, d3.max(stateData, d => d.poverty)])
